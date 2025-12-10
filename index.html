@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priono Teknik AC - Service AC Jakarta, Bekasi, Bogor | Terpercaya dan Transparan | Perawatan, Instalasi & Perbaikan</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C8S5HVTK3C"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-C8S5HVTK3C'); </script>
+   
+    <link rel="icon" href="https://prionoteknikac.github.io/favicon.png" type="image/png">
+
+    <meta name="description" content="Priono Teknik AC menyediakan layanan service AC profesional di Jakarta, Bekasi, Bogor. Berpengalaman dalam instalasi, perbaikan, cuci AC, dan jual beli AC baru/bekas dengan harga transparan.">
+    <meta name="keywords" content="service ac terdekat, service ac jakarta, service ac bekasi, service ac bogor, cuci ac jakarta, cuci ac bekasi, cuci ac bogor, jasa cuci ac terdekat, jasa perbaikan ac terdekat, jasa perbaikan ac jakarta, jasa perbaikan ac bekasi, jasa perbaikan ac bogor, tukang ac terdekat, jasa pasang ac terdekat, jasa pasang ac jakarta, jasa pasang ac bekasi, jasa pasang ac bogor, jasa bongkar pasang ac terdekat, jasa bongkar pasang ac jakarta, jasa bongkar pasang ac bekasi, jasa bongkar pasang ac bogor, service ac jakarta selatan, service ac jakarta timur, service ac panggilan, biaya service ac, jual beli ac bekas jakarta, jual beli ac bekas bekasi, jual beli ac bekas bogor, freon habis, isi freon, tambah freon, service ac gambir, service ac tanah abang, service ac menteng, service ac senen, service ac cempaka putih, service ac johar baru, service ac kemayoran, service ac sawah besar, service ac cilandak, service ac jagakarsa, service ac kebayoran baru, service ac kebayoran lama, service ac mampang prapatan, service ac pancoran, service ac pasar minggu, service ac pesanggrahan, service ac setiabudi, service ac tebet, service ac cengkareng, service ac grogol petamburan, service ac kalideres, service ac kebon jeruk, service ac kembangan, service ac palmerah, service ac taman sari, service ac tambora, service ac cilincing, service ac kelapa gading, service ac koja, service ac pademangan, service ac penjaringan, service ac tanjung priok, service ac cakung, service ac cipayung, service ac ciracas, service ac duren sawit, service ac jatinegara, service ac kramat jati, service ac makasar, service ac matraman, service ac pasar rebo, service ac pulo gadung">
+    <meta name="author" content="Priono Teknik AC">
+    <link rel="canonical" href="https://prionoteknikac.github.io/"> 
+    <meta property="og:title" content="Priono Teknik AC - Service AC Jakarta, Bekasi, Bogor | Terpercaya dan Transparan | Perawatan, Instalasi & Perbaikan">
+    <meta property="og:description" content="Layanan service AC profesional di Jakarta, Bekasi, Bogor. Berpengalaman dalam Perawatan, instalasi, dan Perbaikan. Serta melayani jual beli AC baru / bekas.">
+    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=Service+AC+Priono+Teknik">
+    <meta property="og:url" content="https://prionoteknikac.github.io/"> 
+    <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="MSKmu5fCuzaOmJ1iWSyMccQbqzaRTizYkVEZXRK01A4" /> 
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7fafc; }
+        .text-shadow-custom { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        .section-separator { content: ''; display: block; width: 100px; height: 4px; background-color: #3b82f6; margin-top: 1rem; margin-bottom: 2rem; border-radius: 9999px; }
+        .fade-in { animation: fadeIn 1.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        #map { height: 350px; z-index: 1; }
+        
+        #mute-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        #mute-button svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="splash-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 1s ease-out;">
+        <video id="opening-video" style="max-width: 100%; max-height: 100%;" playsinline muted autoplay>
+            <source src="https://res.cloudinary.com/drdjw4khf/video/upload/v1758392001/frion-opening-scene2_crbfcq.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+        
+        <button id="mute-button">
+            <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+            </svg>
+            <svg id="icon-unmuted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+            </svg>
+        </button>
+    </div>
+    
+    <div id="website-content" style="opacity: 0; transition: opacity 1s ease-in;">
+
+        <header id="main-header" class="bg-white shadow-lg fixed top-0 left-0 w-full z-50">
+            <nav class="container mx-auto px-6 py-3 flex items-center justify-between">
+                <a href="#" class="flex items-center">
+                    <img src="https://prionoteknikac.github.io/logo.png" alt="Logo Priono Teknik AC" class="h-14 w-auto">
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#tentang" class="text-gray-600 hover:text-blue-500 font-medium">Tentang Kami</a>
+                    <a href="#layanan" class="text-gray-600 hover:text-blue-500 font-medium">Layanan</a>
+                    <a href="#produk" class="text-gray-600 hover:text-blue-500 font-medium">Produk</a>
+                    <a href="#kalkulator" class="text-gray-600 hover:text-blue-500 font-medium">Kalkulator Biaya</a>
+                    <a href="#artikel" class="text-gray-600 hover:text-blue-500 font-medium">Artikel & Tips</a>
+                    <a href="https://asisten-ai-frion.netlify.app" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-blue-500 font-medium">🤖 Diagnosa AI</a>
+                    <button id="nav-order-btn" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition">Pesan Sekarang</button>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </nav>
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg p-4">
+                <a href="#tentang" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">Tentang Kami</a>
+                <a href="#layanan" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">Layanan</a>
+                <a href="#produk" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">Produk</a>
+                <a href="#kalkulator" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">Kalkulator Biaya</a>
+                <a href="#artikel" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">Artikel & Tips</a>
+                <a href="https://asisten-ai-frion.netlify.app" target="_blank" rel="noopener noreferrer" class="block py-2 text-gray-600 hover:text-blue-500 font-medium">🤖 Diagnosa AI</a>
+                <button id="mobile-nav-order-btn" class="mt-2 w-full bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition">Pesan Sekarang</button>
+            </div>
+        </header>
+
+        <main id="main-content" class="mt-20">
+            <section class="bg-blue-500 text-white py-20 px-6 text-center shadow-lg">
+                <h1 class="text-4xl sm:text-5xl font-bold fade-in">PRIONO TEKNIK AC Jasa Service AC Jakarta, Bekasi, Bogor. Solusi Layanan Terbaik untuk Kebutuhan AC Anda</h1>
+                <p class="mt-4 text-xl fade-in-delay">Berpengalaman dalam Instalasi, Perbaikan, dan Perawatan AC</p>
+                <a href="#kalkulator" class="mt-8 inline-block bg-white text-blue-500 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">Hitung Biaya Sekarang</a>
+            </section>
+
+            <section id="tentang" class="py-16 px-6 container mx-auto">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Tentang Kami</h2>
+                <div class="section-separator mx-auto"></div>
+                <div class="mt-8 flex flex-col md:flex-row items-center md:space-x-8">
+                    <div class="md:w-1/2 text-gray-700 leading-relaxed">
+                        <p>Priono Teknik AC adalah salah satu penyedia layanan AC terbaik di Jakarta, Bekasi, dan Bogor. Berdedikasi untuk memberikan solusi pendingin ruangan yang efisien dan andal. Kami melayani berbagai kebutuhan, mulai dari jual beli AC baru / bekas, instalasi, perbaikan, hingga perawatan rutin untuk perumahan, apartemen, perkantoran, pergudangan, perniagaan, restoran atau sejenisnya, hingga tempat peribadatan.</p>
+                        <p class="mt-4">Dengan tim teknisi profesional yang berpengalaman, kami menjamin kualitas layanan terbaik dan memastikan setiap pekerjaan dilakukan sesuai SOP.</p>
+                    </div>
+                    <div class="md:w-1/2 mt-8 md:mt-0">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Tim+Priono+Teknik+AC" alt="Tim teknisi Priono Teknik AC" class="rounded-xl shadow-xl">
+                    </div>
+                </div>
+            </section>
+
+            <section id="layanan" class="bg-blue-50 py-16 px-6">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center text-gray-800">Layanan Kami</h2>
+                    <div class="section-separator mx-auto"></div>
+                    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="service-card bg-white p-6 rounded-xl shadow-lg transform transition duration-300">
+                            <div class="flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-500 rounded-full mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.228.307 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Perbaikan AC</h3>
+                            <p class="mt-2 text-gray-600">Diagnosa dan perbaikan untuk semua jenis kerusakan, seperti AC tidak dingin, bocor, atau mati total.</p>
+                        </div>
+                        <div class="service-card bg-white p-6 rounded-xl shadow-lg transform transition duration-300">
+                            <div class="flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-500 rounded-full mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m16 0l-3-1m-6 2v8m-3-6h6m-6 4h6m-6 4h6m-1-4a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Perawatan AC</h3>
+                            <p class="mt-2 text-gray-600">Layanan cuci AC rutin untuk menjaga performa AC tetap prima dan udara di ruangan tetap bersih dan sehat.</p>
+                        </div>
+                        <div class="service-card bg-white p-6 rounded-xl shadow-lg transform transition duration-300">
+                            <div class="flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-500 rounded-full mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Instalasi AC</h3>
+                            <p class="mt-2 text-gray-600">Jasa instalasi AC baru atau bekas, dan bongkar pasang AC untuk relokasi dengan jaminan keamanan dan profesionalisme.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="produk" class="py-16 px-6 container mx-auto">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Produk AC Baru</h2>
+                <div class="section-separator mx-auto"></div>
+                <div id="product-list" class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                </div>
+            </section>
+
+            <section id="kalkulator" class="bg-blue-50 py-16 px-6">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center text-gray-800">Kalkulator Biaya Layanan</h2>
+                    <div class="section-separator mx-auto"></div>
+                    <div class="mt-8 bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
+                        <form id="calculator-form" class="space-y-6">
+                            
+                            <div>
+                                <label for="jasa-pasang" class="block text-gray-700 font-medium mb-2">Jasa Pasang:</label>
+                                <select id="jasa-pasang" name="jasa-pasang" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Jasa Pasang</option>
+                                </select>
+                            </div>
+                            
+                            <div id="pasang-unit-container" class="hidden">
+                                <label for="pasang-units" class="block text-gray-700 font-medium mb-2">Jumlah Unit AC:</label>
+                                <select id="pasang-units" name="pasang-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Unit</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="jasa-bongkar" class="block text-gray-700 font-medium mb-2">Jasa Bongkar AC:</label>
+                                <select id="jasa-bongkar" name="jasa-bongkar" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Jasa Bongkar AC</option>
+                                    <option value="150000">Bongkar AC 1/2 PK - 2.5 PK (Rp 150.000 per unit)</option>
+                                </select>
+                            </div>
+
+                            <div id="bongkar-unit-container" class="hidden">
+                                <label for="bongkar-units" class="block text-gray-700 font-medium mb-2">Jumlah Unit AC:</label>
+                                <select id="bongkar-units" name="bongkar-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Unit</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="jasa-cuci" class="block text-gray-700 font-medium mb-2">Jasa Cuci AC:</label>
+                                <select id="jasa-cuci" name="jasa-cuci" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Jasa Cuci AC</option>
+                                    <option value="80000">Cuci AC 1/2 PK - 2,5 PK (Rp 80.000 per unit)</option>
+                                </select>
+                            </div>
+
+                            <div id="cuci-unit-container" class="hidden">
+                                <label for="cuci-units" class="block text-gray-700 font-medium mb-2">Jumlah Unit Cuci:</label>
+                                <select id="cuci-units" name="cuci-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Unit</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="layanan" class="block text-gray-700 font-medium mb-2">Jasa Perbaikan AC:</label>
+                                <select id="layanan" name="layanan" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Jasa Perbaikan AC</option>
+                                    <option value="perbaikan">Perbaikan AC (akan diestimasi di lokasi)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="unit-ac-baru" class="block text-gray-700 font-medium mb-2">Unit AC Baru:</label>
+                                <select id="unit-ac-baru" name="unit-ac-baru" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Unit AC Baru</option>
+                                </select>
+                            </div>
+                            
+                            <div id="baru-unit-container" class="hidden">
+                                <label for="baru-units" class="block text-gray-700 font-medium mb-2">Jumlah Unit Baru:</label>
+                                <select id="baru-units" name="baru-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Unit</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="unit-ac-bekas" class="block text-gray-700 font-medium mb-2">Unit AC Bekas:</label>
+                                <select id="unit-ac-bekas" name="unit-ac-bekas" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Unit AC Bekas</option>
+                                </select>
+                            </div>
+
+                            <div id="bekas-unit-container" class="hidden">
+                                <label for="bekas-units" class="block text-gray-700 font-medium mb-2">Jumlah Unit Bekas:</label>
+                                <select id="bekas-units" name="bekas-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Unit</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="pipa-type" class="block text-gray-700 font-medium mb-2">Ukuran Pipa Refrigerant:</label>
+                                    <select id="pipa-type" name="pipa-type" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="0">Ukuran Pipa</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="pipa-length" class="block text-gray-700 font-medium mb-2">Panjang Pipa (meter):</label>
+                                    <select id="pipa-length" name="pipa-length" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="0">Panjang Pipa</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="kabel-type" class="block text-gray-700 font-medium mb-2">Ukuran Kabel:</label>
+                                    <select id="kabel-type" name="kabel-type" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="0">Ukuran Kabel</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="kabel-length" class="block text-gray-700 font-medium mb-2">Panjang Kabel (meter):</label>
+                                    <select id="kabel-length" name="kabel-length" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="0">Panjang Kabel</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="bracket" class="block text-gray-700 font-medium mb-2">Bracket Outdoor:</label>
+                                <select id="bracket" name="bracket" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Ukuran Bracket</option>
+                                </select>
+                            </div>
+                            
+                            <div id="bracket-unit-container" class="hidden">
+                                <label for="bracket-units" class="block text-gray-700 font-medium mb-2">Jumlah Bracket (Set):</label>
+                                <select id="bracket-units" name="bracket-units" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="1">1 Set</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="selang-drain-option" class="block text-gray-700 font-medium mb-2">Selang Drain:</label>
+                                <select id="selang-drain-option" name="selang-drain-option" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Selang Drain 1/2 PK - 2,5 PK (Gratis)</option>
+                                    <option value="3">3 Meter</option>
+                                    <option value="4">4 Meter</option>
+                                    <option value="5">5 Meter</option>
+                                    <option value="6">6 Meter</option>
+                                    <option value="7">7 Meter</option>
+                                    <option value="8">8 Meter</option>
+                                    <option value="9">9 Meter</option>
+                                    <option value="10">10 Meter</option>
+                                </select>
+                            </div>
+
+                            <button type="button" class="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 transform hover:scale-105">Perbarui Biaya Otomatis</button>
+                        </form>
+
+                        <div id="result-container" class="mt-8 p-6 bg-blue-100 rounded-lg text-center hidden">
+                            <h3 class="text-2xl font-bold text-blue-800">Estimasi Biaya</h3>
+                            <p id="total-cost" class="mt-4 text-4xl font-extrabold text-blue-900">Rp 0</p>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <button id="show-order-form-btn" class="bg-green-500 text-white font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 text-xl">
+                                Pesan Sekarang
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            
+            <section id="ai-diagnosa" class="py-16 px-6 container mx-auto text-center">
+                <h2 class="text-3xl font-bold text-gray-800">AC Anda Bermasalah?</h2>
+                <div class="section-separator mx-auto"></div>
+                <p class="max-w-2xl mx-auto text-gray-700 mb-8">
+                    Anda dapat menggunakan asisten AI kami untuk mendapatkan diagnosis awal dan perkiraan masalah secara cepat sebelum memanggil teknisi, bahkan Anda dapat bertanya apapun kepada asisten AI kami seputar AC. 
+                </p>
+                <a href="https://asisten-ai-frion.netlify.app" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 text-xl">
+                    Mulai Percakapan Dengan AI Priono Teknik Sekarang
+                </a>
+            </section>
+            
+            <section id="artikel" class="py-16 px-6 container mx-auto bg-gray-100">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Artikel & Tips Perawatan AC</h2>
+                <div class="section-separator mx-auto"></div>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x250/3b82f6/ffffff?text=Tanda+Isi+Ulang+Freon" alt="Tanda Isi Ulang Freon AC" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Kenali Freon AC: Tanda-Tanda AC Perlu Diisi Ulang</h3>
+                            <p class="mt-2 text-gray-600 text-sm">Freon adalah kunci pendinginan AC. Pelajari tanda-tanda umum yang menunjukkan freon AC Anda perlu diisi ulang agar tetap sejuk.</p>
+                            <a href="https://prionoteknikac.github.io/kenali-freon-ac-tanda-isi-ulang.html" class="mt-4 inline-block text-blue-500 font-medium hover:underline">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x250/3b82f6/ffffff?text=Biaya+Kebocoran+Freon" alt="Penyebab Kebocoran Freon AC" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Penyebab dan Biaya Perbaikan Kebocoran Freon AC</h3>
+                            <p class="mt-2 text-gray-600 text-sm">Kebocoran freon adalah masalah umum. Ketahui penyebab utamanya dan dapatkan estimasi biaya perbaikannya agar Anda tidak salah langkah.</p>
+                            <a href="https://prionoteknikac.github.io/penyebab-biaya-kebocoran-freon-ac.html" class="mt-4 inline-block text-blue-500 font-medium hover:underline">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x250/3b82f6/ffffff?text=Tambah+Freon+vs+Cari+Bocor" alt="Tambah Freon atau Cari Kebocoran" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Tambah Freon vs. Cari Bocor: Mana yang Lebih Baik?</h3>
+                            <p class="mt-2 text-gray-600 text-sm">AC kurang dingin, haruskah langsung tambah freon atau cari dulu sumber kebocorannya? Pahami perbedaannya di sini.</p>
+                            <a href="https://prionoteknikac.github.io/tambah-freon-vs-cari-bocor.html" class="mt-4 inline-block text-blue-500 font-medium hover:underline">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        
+        <section id="order-form-section" class="hidden bg-slate-100 flex items-center justify-center min-h-screen p-4">
+            <div class="w-full max-w-2xl mx-auto">
+                <div id="mainContainer">
+                    <div id="formContainer" class="bg-white p-8 rounded-2xl shadow-lg transition-all duration-500">
+                        <div class="text-center mb-8">
+                            <h1 class="text-3xl font-bold text-slate-800">Form Order Priono Teknik AC</h1>
+                            <p class="text-slate-500 mt-2">Silakan isi detail di bawah ini untuk melakukan pemesanan.</p>
+                        </div>
+                        <form id="bookingForm" class="space-y-6">
+                            <div>
+                                <h2 class="text-xl font-semibold text-slate-700 border-b pb-2 mb-4">Informasi Pelanggan</h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-slate-600 mb-1">Nama Lengkap</label>
+                                        <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="block text-sm font-medium text-slate-600 mb-1">Nomor Telepon (WhatsApp)</label>
+                                        <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                    </div>
+                                </div>
+                                <div class="mt-6">
+                                    <label for="address" class="block text-sm font-medium text-slate-600 mb-1">Alamat</label>
+                                    <textarea id="address" name="address" rows="3" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Masukkan alamat lengkap Anda"></textarea>
+                                </div>
+                                 <div class="mt-6">
+                                    <label class="block text-sm font-medium text-slate-600 mb-1">Tentukan Titik Peta Lokasi</label>
+                                    <button type="button" id="findMeBtn" class="mb-2 w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition text-sm text-slate-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                        </svg>
+                                        <span id="findMeBtnText">Gunakan Lokasi Saya Saat Ini</span>
+                                    </button>
+                                    <div id="map" class="w-full rounded-lg border border-slate-300 mt-1"></div>
+                                    <input type="hidden" id="map_coordinates" name="map_coordinates">
+                                    <p class="text-xs text-slate-500 mt-2">Atau geser penanda merah untuk menyesuaikan lokasi Anda.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h2 class="text-xl font-semibold text-slate-700 border-b pb-2 mb-4">Detail Pesanan</h2>
+                                <div id="orderItemsContainer" class="space-y-4">
+                                    <div class="order-item grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
+                                        <div class="md:col-span-4">
+                                            <label class="block text-sm font-medium text-slate-600 mb-1">Kategori Layanan</label>
+                                            <select name="product[]" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                                <option value="" disabled selected>-- Pilih salah satu --</option>
+                                                <option value="Beli AC Baru">Beli AC Baru</option>
+                                                <option value="Beli AC Bekas">Beli AC Bekas</option>
+                                                <option value="Jual AC">Jual AC</option>
+                                                <option value="Tukar Tambah AC">Tukar Tambah AC</option>
+                                                <option value="Perawatan AC">Perawatan AC</option>
+                                                <option value="Perbaikan AC">Perbaikan AC</option>
+                                            </select>
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-sm font-medium text-slate-600 mb-1">Jumlah Unit</label>
+                                            <input type="number" name="quantity[]" min="1" value="1" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="addOrderItemBtn" class="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-800 transition">+ Tambah Pesanan Lain</button>
+                                
+                                <div class="mt-6">
+                                    <label for="booking_date" class="block text-sm font-medium text-slate-600 mb-1">Tanggal Layanan</label>
+                                    <input type="date" id="booking_date" name="booking_date" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="notes" class="block text-sm font-medium text-slate-600 mb-1">Catatan Tambahan (Opsional)</label>
+                                <textarea id="notes" name="notes" rows="4" class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Contoh: AC tidak dingin, unit di lantai 2, dll."></textarea>
+                            </div>
+                        </form>
+                         <div class="flex flex-col md:flex-row gap-4 pt-6">
+                            <button type="button" id="cancelBtn" class="w-full md:w-1/2 bg-slate-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-700 transition">
+                                Kembali ke Halaman Utama
+                            </button>
+                            <button type="button" id="orderBtn" class="w-full md:w-1/2 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition">
+                                Kirim Pesanan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="confirmationMessage" class="hidden bg-white p-8 rounded-2xl shadow-lg text-center">
+                         <svg class="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h1 class="text-3xl font-bold text-slate-800 mt-4">Terima Kasih!</h1>
+                        <p class="text-slate-500 mt-2 px-4">Pesan Anda telah terkirim. Kami akan segera menghubungi Anda untuk konfirmasi.</p>
+                        <button id="new-order-btn-confirm" class="mt-8 w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">
+                            Kembali ke Halaman Utama
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="main-footer" class="bg-gray-800 text-white py-8 px-6">
+            <div class="container mx-auto text-center">
+                <p>© 2025 Priono Teknik AC. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Bagian 1: Logika Video Pembuka ---
+    const splashScreen = document.getElementById('splash-screen');
+    const openingVideo = document.getElementById('opening-video');
+    const websiteContent = document.getElementById('website-content');
+    const muteButton = document.getElementById('mute-button');
+    const iconMuted = document.getElementById('icon-muted');
+    const iconUnmuted = document.getElementById('icon-unmuted');
+
+    // Fungsi untuk transisi dari video ke konten utama
+    function startMainWebsite() {
+        if (splashScreen.style.display === 'none') return; // Mencegah fungsi berjalan dua kali
+        
+        splashScreen.style.opacity = '0'; // Mulai fade out splash screen
+        setTimeout(() => {
+            splashScreen.style.display = 'none'; // Sembunyikan setelah transisi selesai
+            websiteContent.style.opacity = '1'; // Tampilkan konten website
+            initializeMainWebsite(); // Inisialisasi semua fungsi website utama
+        }, 1000); // Sesuaikan durasi dengan transisi CSS (1s)
+    }
+
+    // Pemicu 1: Jalankan website jika video selesai diputar
+    openingVideo.addEventListener('ended', startMainWebsite);
+
+    // Pemicu 2: Fallback jika video gagal diputar setelah beberapa detik
+    const videoTimeout = setTimeout(() => {
+        if (getComputedStyle(splashScreen).display !== 'none') {
+            console.log("Video playback timeout. Starting website.");
+            startMainWebsite();
+        }
+    }, 15000); // Timeout 15 detik sebagai pengaman
+
+    openingVideo.addEventListener('canplay', () => {
+       clearTimeout(videoTimeout); // Batalkan timeout jika video bisa diputar
+    });
+
+
+    // Logika tombol mute/unmute
+    muteButton.addEventListener('click', () => {
+        openingVideo.muted = !openingVideo.muted;
+        iconMuted.classList.toggle('hidden');
+        iconUnmuted.classList.toggle('hidden');
+    });
+
+    // --- Bagian 2: Fungsi untuk Inisialisasi Website Utama (Akan dipanggil setelah video) ---
+    function initializeMainWebsite() {
+        const acBaruData = [
+            { "Merk AC": "Daikin", "Ukuran PK": 0.5, "Tipe": "FTC15YV14", "Harga": 3900000, "BTU / H": 5000, "Watt": 390, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "5 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 0.5, "Tipe": "FTP15AV149", "Harga": 3450000, "BTU / H": 5000, "Watt": 390, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 1, "Tipe": "FTC25YV14", "Harga": 4750000, "BTU / H": 9000, "Watt": 750, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "5 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 1.5, "Tipe": "FTC35YV14", "Harga": 5850000, "BTU / H": 12000, "Watt": 1050, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "5 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 1.5, "Tipe": "FTC35NV14", "Harga": 5850000, "BTU / H": 11100, "Watt": 933, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Thailand", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 2, "Tipe": "FTC50YV14", "Harga": 7750000, "BTU / H": 17100, "Watt": 1525, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "5 Tahun" },
+            { "Merk AC": "Daikin", "Ukuran PK": 2.5, "Tipe": "FTV60CXV14", "Harga": 10150000, "BTU / H": 22000, "Watt": 2115, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4+ 1/2", "Buatan": "Malaysia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 0.5, "Tipe": "GWC-05MOO5S", "Harga": 3350000, "BTU / H": 5000, "Watt": 370, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 0.5, "Tipe": "GWC-05N1", "Harga": 3450000, "BTU / H": 5000, "Watt": 385, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 1, "Tipe": "GWC-09MOO5S", "Harga": 3950000, "BTU / H": 9000, "Watt": 735, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 1, "Tipe": "GWC-09N1", "Harga": 4150000, "BTU / H": 9300, "Watt": 780, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 1.5, "Tipe": "GWC-12N1", "Harga": 5250000, "BTU / H": 12000, "Watt": 1000, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 2, "Tipe": "GWC-18MOO5A", "Harga": 6750000, "BTU / H": 18000, "Watt": 1600, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Gree", "Ukuran PK": 2, "Tipe": "GWC-18N1A", "Harga": 6950000, "BTU / H": 18000, "Watt": 1450, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 0.5, "Tipe": "AH-A5ZCY", "Harga": 2750000, "BTU / H": 5000, "Watt": 344, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 0.5, "Tipe": "AH-A5BEY2", "Harga": 2550000, "BTU / H": 5000, "Watt": 344, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 0.5, "Tipe": "AH-AP5BMY2", "Harga": 3150000, "BTU / H": 5000, "Watt": 360, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 1, "Tipe": "AH-A9BEY2", "Harga": 2950000, "BTU / H": 9000, "Watt": 765, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 1, "Tipe": "AH-A9ZCY", "Harga": 3150000, "BTU / H": 9000, "Watt": 765, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 1, "Tipe": "AH-AP9BMY2", "Harga": 3450000, "BTU / H": 9000, "Watt": 760, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 1.5, "Tipe": "AH-A12ZCY", "Harga": 4550000, "BTU / H": 11500, "Watt": 1035, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 1.5, "Tipe": "AH-A12SAY", "Harga": 4650000, "BTU / H": 12000, "Watt": 1090, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Thailand", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 2, "Tipe": "AH-18ZCY", "Harga": 6150000, "BTU / H": 17500, "Watt": 1640, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Sharp", "Ukuran PK": 2, "Tipe": "AH-A18SAY2", "Harga": 6250000, "BTU / H": 16000, "Watt": 1740, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Thailand", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 0.5, "Tipe": "CS-ZN5YKP", "Harga": 3150000, "BTU / H": 5000, "Watt": 344, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 0.5, "Tipe": "CS-YN5AKJ", "Harga": 3500000, "BTU / H": 5000, "Watt": 389, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 1, "Tipe": "CS-YN9AKJ", "Harga": 3950000, "BTU / H": 9000, "Watt": 800, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 1, "Tipe": "CS-ZN9YKP", "Harga": 3350000, "BTU / H": 9000, "Watt": 765, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 1.5, "Tipe": "CS-LN12AKJ", "Harga": 5550000, "BTU / H": 12000, "Watt": 1020, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 1.5, "Tipe": "CS-YN12AKJ", "Harga": 5250000, "BTU / H": 12000, "Watt": 1050, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 2, "Tipe": "CS-YN18AKJ", "Harga": 6750000, "BTU / H": 18000, "Watt": 1660, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 2, "Tipe": "CS-PN18AKJ", "Harga": 7250000, "BTU / H": 18000, "Watt": 1660, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Panasonic", "Ukuran PK": 2.5, "Tipe": "CS-YN24AKJ", "Harga": 9650000, "BTU / H": 23200, "Watt": 2140, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 5/8", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 0.5, "Tipe": "MSFCE-05CRN2X", "Harga": 2450000, "BTU / H": 5000, "Watt": 350, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 0.5, "Tipe": "MSAFE-05CRN2X", "Harga": 2550000, "BTU / H": 5000, "Watt": 424, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 1, "Tipe": "MSAF-09CRN2X", "Harga": 2850000, "BTU / H": 9000, "Watt": 800, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 1, "Tipe": "MSFC-09CRN2X", "Harga": 2750000, "BTU / H": 9000, "Watt": 800, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 1.5, "Tipe": "MSAF-12CRN2X", "Harga": 4150000, "BTU / H": 12000, "Watt": 1000, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 1.5, "Tipe": "MSFC-12CRN2X", "Harga": 3850000, "BTU / H": 11500, "Watt": 1035, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 2, "Tipe": "MSAF-18CRN2X", "Harga": 5350000, "BTU / H": 18475, "Watt": 1693, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Midea", "Ukuran PK": 2.5, "Tipe": "MSAF-24CRN2X", "Harga": 6850000, "BTU / H": 24000, "Watt": 1950, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 0.5, "Tipe": "PAC05VH", "Harga": 2550000, "BTU / H": 5000, "Watt": 390, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 0.5, "Tipe": "PAC05VZI", "Harga": 2750000, "BTU / H": 5000, "Watt": 390, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 0.5, "Tipe": "PAC05VZSI", "Harga": 2850000, "BTU / H": 5000, "Watt": 390, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1, "Tipe": "PAC09VH", "Harga": 2850000, "BTU / H": 9000, "Watt": 790, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1, "Tipe": "PAC09VZSI", "Harga": 3150000, "BTU / H": 9000, "Watt": 790, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1, "Tipe": "PAC09VZI", "Harga": 2950000, "BTU / H": 9000, "Watt": 790, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1.5, "Tipe": "PAC12VH", "Harga": 3950000, "BTU / H": 12000, "Watt": 990, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1.5, "Tipe": "PAC12VZ", "Harga": 4250000, "BTU / H": 12000, "Watt": 990, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 1.5, "Tipe": "PAC12VZS", "Harga": 4650000, "BTU / H": 12000, "Watt": 990, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 2, "Tipe": "PAC18VH", "Harga": 5250000, "BTU / H": 18000, "Watt": 1590, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 2, "Tipe": "PAC18VZ", "Harga": 5650000, "BTU / H": 18000, "Watt": 1590, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Polytron", "Ukuran PK": 2, "Tipe": "PAC18VZS", "Harga": 5750000, "BTU / H": 18000, "Watt": 1590, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Aqua", "Ukuran PK": 0.5, "Tipe": "AQA-KCR5FQDL", "Harga": 2450000, "BTU / H": 5000, "Watt": 360, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Aqua", "Ukuran PK": 1, "Tipe": "AQA-KCR9FQDL", "Harga": 2750000, "BTU / H": 9000, "Watt": 760, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Aqua", "Ukuran PK": 1.5, "Tipe": "AQA-KCR12FQAL", "Harga": 4250000, "BTU / H": 12000, "Watt": 1050, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Aqua", "Ukuran PK": 2, "Tipe": "AQA-KCR18FQAL", "Harga": 5450000, "BTU / H": 19000, "Watt": 1750, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "5 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Samsung", "Ukuran PK": 0.5, "Tipe": "AR05BGHQBSINSE", "Harga": 2750000, "BTU / H": 4800, "Watt": 350, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Indonesia", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Samsung", "Ukuran PK": 1, "Tipe": "AR09BGHQASINSE", "Harga": 3250000, "BTU / H": 9000, "Watt": 824, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Samsung", "Ukuran PK": 1.5, "Tipe": "AR12BGHQASINSE", "Harga": 4750000, "BTU / H": 11500, "Watt": 1053, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Samsung", "Ukuran PK": 2, "Tipe": "AR18BGHQASINSE", "Harga": 6250000, "BTU / H": 18000, "Watt": 1628, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Mitsubishi", "Ukuran PK": 0.5, "Tipe": "SRK05CXP2-W3", "Harga": 3750000, "BTU / H": 5000, "Watt": 330, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Mitsubishi", "Ukuran PK": 1, "Tipe": "SRK09CXP2-W3", "Harga": 4150000, "BTU / H": 9000, "Watt": 824, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Mitsubishi", "Ukuran PK": 1.5, "Tipe": "SRK12CXP2-W3", "Harga": 5150000, "BTU / H": 12000, "Watt": 1053, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Mitsubishi", "Ukuran PK": 2, "Tipe": "SRK18CXP2-W3", "Harga": 6550000, "BTU / H": 18000, "Watt": 1520, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Mitsubishi", "Ukuran PK": 2.5, "Tipe": "SRK24CXP2-W3", "Harga": 9250000, "BTU / H": 24000, "Watt": 2070, "Jenis Refrigerant": "R32", "Ukuran Pipa": "3/8 + 5/8", "Buatan": "Cina", "Garansi Spare Part": "1 Tahun", "Garansi Kompresor": "3 Tahun" },
+            { "Merk AC": "Hisense", "Ukuran PK": 0.5, "Tipe": "AN05CDG", "Harga": 2550000, "BTU / H": 5300, "Watt": 393, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Hisense", "Ukuran PK": 1, "Tipe": "AN09CDG", "Harga": 2850000, "BTU / H": 9000, "Watt": 810, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 3/8", "Buatan": "Cina", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Hisense", "Ukuran PK": 1.5, "Tipe": "AN12CDG", "Harga": 3950000, "BTU / H": 12000, "Watt": 1019, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" },
+            { "Merk AC": "Hisense", "Ukuran PK": 2, "Tipe": "AN18CDG", "Harga": 5250000, "BTU / H": 18000, "Watt": 1589, "Jenis Refrigerant": "R32", "Ukuran Pipa": "1/4 + 1/2", "Buatan": "Cina", "Garansi Spare Part": "3 Tahun", "Garansi Kompresor": "10 Tahun" }
+        ];
+        const acBekasData = [ { brand: 'Daikin', pk: '1/2', harga: 1800000 }, { brand: 'Daikin', pk: '1', harga: 2000000 }, { brand: 'Daikin', pk: '1.5', harga: 2200000 }, { brand: 'Daikin', pk: '2', harga: 2500000 }, { brand: 'Gree', pk: '1/2', harga: 1600000 }, { brand: 'Gree', pk: '1', harga: 1800000 }, { brand: 'Gree', pk: '1.5', harga: 2000000 }, { brand: 'Gree', pk: '2', harga: 2300000 }, { brand: 'Panasonic', pk: '1/2', harga: 1600000 }, { brand: 'Panasonic', pk: '1', harga: 1800000 }, { brand: 'Panasonic', pk: '1.5', harga: 2000000 }, { brand: 'Panasonic', pk: '2', harga: 2300000 }, { brand: 'Sharp', pk: '1/2', harga: 1500000 }, { brand: 'Sharp', pk: '1', harga: 1700000 }, { brand: 'Sharp', pk: '1.5', harga: 1900000 }, { brand: 'Sharp', pk: '2', harga: 2100000 }, { brand: 'Midea', pk: '1/2', harga: 1500000 }, { brand: 'Midea', pk: '1', harga: 1700000 }, { brand: 'Midea', pk: '1.5', harga: 1900000 }, { brand: 'Midea', pk: '2', harga: 2100000 }, { brand: 'Samsung', pk: '1/2', harga: 1500000 }, { brand: 'Samsung', pk: '1', harga: 1700000 }, { brand: 'Samsung', pk: '1.5', harga: 1900000 }, { brand: 'Samsung', pk: '2', harga: 2100000 }, { brand: 'LG', pk: '1/2', harga: 1500000 }, { brand: 'LG', pk: '1', harga: 1700000 }, { brand: 'LG', pk: '1.5', harga: 1900000 }, { brand: 'LG', pk: '2', harga: 2100000 }, { brand: 'Polytron', pk: '1/2', harga: 1500000 }, { brand: 'Polytron', pk: '1', harga: 1700000 }, { brand: 'Polytron', pk: '1.5', harga: 1900000 }, { brand: 'Polytron', pk: '2', harga: 2100000 }, { brand: 'Aqua', pk: '1/2', harga: 1500000 }, { brand: 'Aqua', pk: '1', harga: 1700000 }, { brand: 'Aqua', pk: '1.5', harga: 1900000 }, { brand: 'Aqua', pk: '2', harga: 2100000 }, { brand: 'Hisense', pk: '1/2', harga: 1500000 }, { brand: 'Hisense', pk: '1', harga: 1700000 }, { brand: 'Hisense', pk: '1.5', harga: 1900000 }, { brand: 'Hisense', pk: '2', harga: 2100000 }, { brand: 'Changhong', pk: '1/2', harga: 1500000 }, { brand: 'Changhong', pk: '1', harga: 1700000 }, { brand: 'Changhong', pk: '1.5', harga: 1900000 }, { brand: 'Changhong', pk: '2', harga: 2100000 }, { brand: 'Mitsubishi', pk: '1/2', harga: 1500000 }, { brand: 'Mitsubishi', pk: '1', harga: 1700000 }, { brand: 'Mitsubishi', pk: '1.5', harga: 1900000 }, { brand: 'Mitsubishi', pk: '2', harga: 2100000 } ];
+        const servicePrices = { 'jasa-pasang': { '0.5 - 1 PK': 350000, '1.5 PK': 450000, '2 PK': 600000, '2.5 PK': 750000 }, 'pipa': { '1/4 + 3/8': 80000, '1/4 + 1/2': 100000, '1/4 + 5/8': 120000, '3/8 + 5/8': 150000 }, 'kabel': { '3 x 1.5 mm': 20000, '4 x 1.5 mm': 25000, '3 x 2.5 mm': 30000, '4 x 2.5 mm': 35000 }, 'bracket': { '1/2 PK - 1 PK': 65000, '1.5 PK - 2 PK': 95000, '2.5 PK': 120000 }, 'selang_drain': 0 };
+
+        const mainHeader = document.getElementById('main-header');
+        const mainContent = document.getElementById('main-content');
+        const mainFooter = document.getElementById('main-footer');
+        const orderFormSection = document.getElementById('order-form-section');
+        const showOrderFormBtn = document.getElementById('show-order-form-btn');
+        const navOrderBtn = document.getElementById('nav-order-btn');
+        const mobileNavOrderBtn = document.getElementById('mobile-nav-order-btn');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let map = null;
+        function showOrderForm() {
+            mainHeader.classList.add('hidden');
+            mainContent.classList.add('hidden');
+            mainFooter.classList.add('hidden');
+            orderFormSection.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            if (!map) {
+                const initialCoords = [-6.175392, 106.827153];
+                map = L.map('map').setView(initialCoords, 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                const marker = L.marker(initialCoords, { draggable: true }).addTo(map);
+                document.getElementById('map_coordinates').value = initialCoords.join(', ');
+                marker.on('dragend', function (event) {
+                    const position = marker.getLatLng();
+                    document.getElementById('map_coordinates').value = [position.lat, position.lng].join(', ');
+                });
+            }
+            setTimeout(() => map.invalidateSize(), 10);
+        }
+        function showMainContent() {
+            orderFormSection.classList.add('hidden');
+            mainHeader.classList.remove('hidden');
+            mainContent.classList.remove('hidden');
+            mainFooter.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            document.getElementById('formContainer').classList.remove('hidden');
+            document.getElementById('confirmationMessage').classList.add('hidden');
+            document.getElementById('bookingForm').reset();
+        }
+        showOrderFormBtn.addEventListener('click', showOrderForm);
+        navOrderBtn.addEventListener('click', showOrderForm);
+        mobileNavOrderBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            showOrderForm();
+        });
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105';
+            const imageSrc = `https://placehold.co/400x250/3b82f6/ffffff?text=${product['Merk AC']}`;
+            const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+            const formattedPrice = formatter.format(product['Harga']);
+            card.innerHTML = `
+                <img src="${imageSrc}" alt="${product['Merk AC']} AC" class="w-full h-40 object-cover rounded-md mb-4">
+                <h3 class="text-xl font-bold text-gray-800">${product['Merk AC']} ${product['Ukuran PK']} PK - ${product['Tipe']}</h3>
+                <p class="mt-2 text-2xl font-extrabold text-blue-600">${formattedPrice}</p>
+                <div class="mt-4 text-sm text-gray-600 space-y-1">
+                    <p><strong>BTU/h:</strong> ${product['BTU / H']}</p>
+                    <p><strong>Daya Listrik:</strong> ${product['Watt']} W</p>
+                    <p><strong>Jenis Refrigerant:</strong> ${product['Jenis Refrigerant']}</p>
+                    <p><strong>Ukuran Pipa:</strong> ${product['Ukuran Pipa']}</p>
+                    <p><strong>Buatan:</strong> ${product['Buatan']}</p>
+                    <p><strong>Garansi Spare Part:</strong> ${product['Garansi Spare Part']}</p>
+                    <p><strong>Garansi Kompresor:</strong> ${product['Garansi Kompresor']}</p>
+                </div>`;
+            return card;
+        }
+
+        function renderProducts() {
+            const productListContainer = document.getElementById('product-list');
+            if (productListContainer) {
+                productListContainer.innerHTML = '';
+                acBaruData.forEach(product => productListContainer.appendChild(createProductCard(product)));
+            }
+        }
+        const calculatorForm = document.getElementById('calculator-form');
+        if (calculatorForm) {
+            const totalCostElement = document.getElementById('total-cost');
+            const resultContainer = document.getElementById('result-container');
+            const unitACBaruDropdown = document.getElementById('unit-ac-baru');
+            const unitACBekasDropdown = document.getElementById('unit-ac-bekas');
+            const pipaTypeDropdown = document.getElementById('pipa-type');
+            const kabelTypeDropdown = document.getElementById('kabel-type');
+            const bracketDropdown = document.getElementById('bracket');
+            const jasaPasangDropdown = document.getElementById('jasa-pasang');
+            const jasaBongkarDropdown = document.getElementById('jasa-bongkar');
+            const jasaCuciDropdown = document.getElementById('jasa-cuci');
+            const populateDropdowns = () => {
+                acBaruData.forEach(p => { const opt = document.createElement('option'); opt.value = p['Harga']; opt.textContent = `${p['Merk AC']} ${p['Ukuran PK']} PK (${p['Tipe']}) - Rp ${p['Harga'].toLocaleString('id-ID')}`; unitACBaruDropdown.appendChild(opt); });
+                acBekasData.forEach(p => { const opt = document.createElement('option'); opt.value = p['harga']; opt.textContent = `${p['brand']} ${p['pk']} PK - Rp ${p['harga'].toLocaleString('id-ID')}`; unitACBekasDropdown.appendChild(opt); });
+                Object.keys(servicePrices['jasa-pasang']).forEach(key => { const opt = document.createElement('option'); opt.value = servicePrices['jasa-pasang'][key]; opt.textContent = `Pasang AC ${key} (Rp ${servicePrices['jasa-pasang'][key].toLocaleString('id-ID')})`; jasaPasangDropdown.appendChild(opt); });
+                Object.keys(servicePrices['pipa']).forEach(key => { const opt = document.createElement('option'); opt.value = servicePrices['pipa'][key]; opt.textContent = `${key} (Rp ${servicePrices['pipa'][key].toLocaleString('id-ID')} per meter)`; pipaTypeDropdown.appendChild(opt); });
+                Object.keys(servicePrices['kabel']).forEach(key => { const opt = document.createElement('option'); opt.value = servicePrices['kabel'][key]; opt.textContent = `${key} (Rp ${servicePrices['kabel'][key].toLocaleString('id-ID')} per meter)`; kabelTypeDropdown.appendChild(opt); });
+                Object.keys(servicePrices['bracket']).forEach(key => { const opt = document.createElement('option'); opt.value = servicePrices['bracket'][key]; opt.textContent = `${key} (Rp ${servicePrices['bracket'][key].toLocaleString('id-ID')})`; bracketDropdown.appendChild(opt); });
+            };
+            const updateUnitContainerDisplay = () => {
+                document.getElementById('pasang-unit-container').classList.toggle('hidden', jasaPasangDropdown.value === '0');
+                document.getElementById('bongkar-unit-container').classList.toggle('hidden', jasaBongkarDropdown.value === '0');
+                document.getElementById('cuci-unit-container').classList.toggle('hidden', jasaCuciDropdown.value === '0');
+                document.getElementById('baru-unit-container').classList.toggle('hidden', unitACBaruDropdown.value === '0');
+                document.getElementById('bekas-unit-container').classList.toggle('hidden', unitACBekasDropdown.value === '0');
+                document.getElementById('bracket-unit-container').classList.toggle('hidden', bracketDropdown.value === '0');
+            };
+            const calculateTotalCost = () => {
+                let total = 0;
+                const jasaPasangPrice = parseFloat(jasaPasangDropdown.value) || 0;
+                const jasaBongkarPrice = parseFloat(jasaBongkarDropdown.value) || 0;
+                const jasaCuciPrice = parseFloat(jasaCuciDropdown.value) || 0;
+                if (jasaPasangPrice > 0) total += jasaPasangPrice * parseInt(document.getElementById('pasang-units').value);
+                if (jasaBongkarPrice > 0) total += jasaBongkarPrice * parseInt(document.getElementById('bongkar-units').value);
+                if (jasaCuciPrice > 0) total += jasaCuciPrice * parseInt(document.getElementById('cuci-units').value);
+                const unitACBaruPrice = parseFloat(unitACBaruDropdown.value) || 0;
+                if (unitACBaruPrice > 0) { total += unitACBaruPrice * parseInt(document.getElementById('baru-units').value); }
+                if (parseFloat(unitACBekasDropdown.value) > 0) total += parseFloat(unitACBekasDropdown.value) * parseInt(document.getElementById('bekas-units').value);
+                total += (parseFloat(pipaTypeDropdown.value) || 0) * (parseInt(document.getElementById('pipa-length').value) || 0);
+                total += (parseFloat(kabelTypeDropdown.value) || 0) * (parseInt(document.getElementById('kabel-length').value) || 0);
+                if (parseFloat(bracketDropdown.value) > 0) total += parseFloat(bracketDropdown.value) * parseInt(document.getElementById('bracket-units').value);
+                totalCostElement.textContent = total.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+                resultContainer.classList.remove('hidden');
+            };
+            calculatorForm.addEventListener('change', () => { updateUnitContainerDisplay(); calculateTotalCost(); });
+            const populateUnitCounts = (selectId, label) => { const selectElement = document.getElementById(selectId); for (let i = 2; i <= 20; i++) { const option = document.createElement('option'); option.value = i; option.textContent = `${i} ${label}`; selectElement.appendChild(option); } };
+            populateUnitCounts('cuci-units', 'Unit');
+            populateUnitCounts('pasang-units', 'Unit');
+            populateUnitCounts('bongkar-units', 'Unit');
+            populateUnitCounts('baru-units', 'Unit');
+            populateUnitCounts('bekas-units', 'Unit');
+            populateUnitCounts('bracket-units', 'Set');
+            const populateLengths = (selectId, start, end) => { const selectElement = document.getElementById(selectId); for (let i = start; i <= end; i++) { const option = document.createElement('option'); option.value = i; option.textContent = `${i} meter`; selectElement.appendChild(option); } };
+            populateLengths('pipa-length', 3, 25);
+            populateLengths('kabel-length', 4, 26);
+            populateDropdowns();
+            updateUnitContainerDisplay();
+        }
+        const bookingForm = document.getElementById('bookingForm');
+        const formContainer = document.getElementById('formContainer');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        const orderItemsContainer = document.getElementById('orderItemsContainer');
+        const addOrderItemBtn = document.getElementById('addOrderItemBtn');
+        const orderBtn = document.getElementById('orderBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const findMeBtn = document.getElementById('findMeBtn');
+        const newOrderBtnConfirm = document.getElementById('new-order-btn-confirm');
+        findMeBtn.addEventListener('click', () => { if (navigator.geolocation) { document.getElementById('findMeBtnText').textContent = "Mencari lokasi..."; findMeBtn.disabled = true; navigator.geolocation.getCurrentPosition( (position) => { const userLocation = [position.coords.latitude, position.coords.longitude]; if(map) { map.setView(userLocation, 17); map.eachLayer(layer => { if (layer instanceof L.Marker) layer.setLatLng(userLocation); }); } document.getElementById('map_coordinates').value = userLocation.join(', '); document.getElementById('findMeBtnText').textContent = "Lokasi Ditemukan!"; setTimeout(() => { document.getElementById('findMeBtnText').textContent = "Gunakan Lokasi Saya Saat Ini"; findMeBtn.disabled = false; }, 2000); }, () => { document.getElementById('findMeBtnText').textContent = "Gagal Mendapatkan Lokasi"; setTimeout(() => { document.getElementById('findMeBtnText').textContent = "Gunakan Lokasi Saya Saat Ini"; findMeBtn.disabled = false; }, 3000); } ); } else { alert("Browser Anda tidak mendukung fitur lokasi."); } });
+        addOrderItemBtn.addEventListener('click', () => {
+            const currentItems = orderItemsContainer.querySelectorAll('.order-item').length;
+            if (currentItems < 3) {
+                const newItemRow = orderItemsContainer.children[0].cloneNode(true);
+                newItemRow.querySelector('select').value = "";
+                newItemRow.querySelector('input').value = "1";
+                const deleteButton = document.createElement('button');
+                deleteButton.type = 'button';
+                deleteButton.innerHTML = '×';
+                deleteButton.className = 'text-red-500 hover:text-red-700 font-bold text-2xl leading-none self-end mb-2';
+                deleteButton.onclick = () => { newItemRow.remove(); updateAddButtonState(); };
+                newItemRow.classList.replace('md:grid-cols-6', 'md:grid-cols-7');
+                newItemRow.children[0].classList.replace('md:col-span-4', 'md:col-span-3');
+                newItemRow.children[1].classList.replace('md:col-span-2', 'md:col-span-3');
+                const deleteColumn = document.createElement('div');
+                deleteColumn.className = 'md:col-span-1 flex items-end justify-start';
+                deleteColumn.appendChild(deleteButton);
+                newItemRow.appendChild(deleteColumn);
+                orderItemsContainer.appendChild(newItemRow);
+                updateAddButtonState();
+            }
+        });
+        function updateAddButtonState() { const currentItems = orderItemsContainer.querySelectorAll('.order-item').length; addOrderItemBtn.style.display = currentItems >= 3 ? 'none' : 'block'; }
+        document.getElementById('booking_date').setAttribute('min', new Date().toISOString().split('T')[0]);
+        orderBtn.addEventListener('click', function() {
+            if (!bookingForm.checkValidity()) { bookingForm.reportValidity(); return; }
+            const yourWhatsAppNumber = '62881010050528'; 
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const coordinates = document.getElementById('map_coordinates').value;
+            const bookingDate = document.getElementById('booking_date').value;
+            const notes = document.getElementById('notes').value;
+            const formattedDate = new Date(bookingDate).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            let orderDetails = '';
+            orderItemsContainer.querySelectorAll('.order-item').forEach(item => { const product = item.querySelector('select[name="product[]"]').value; const quantity = item.querySelector('input[name="quantity[]"]').value; if (product) orderDetails += `\n- ${product} (${quantity} unit)`; });
+            let whatsappMessage = `*-- ORDER BARU PRIONO TEKNIK AC --*\n\n*Nama Pelanggan:*\n${name}\n\n*Nomor Telepon:*\n${phone}\n\n*Alamat:*\n${address}\n\n*Titik Lokasi (Google Maps):*\nhttps://www.google.com/maps/search/?api=1&query=${coordinates}\n\n*Detail Pesanan:*${orderDetails}\n\n*Tanggal Layanan:*\n${formattedDate}\n\n*Catatan Tambahan:*\n${notes || 'Tidak ada'}`;
+            const whatsappURL = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappURL, '_blank');
+            formContainer.classList.add('hidden');
+            confirmationMessage.classList.remove('hidden');
+        });
+        cancelBtn.addEventListener('click', showMainContent);
+        newOrderBtnConfirm.addEventListener('click', showMainContent);
+        renderProducts();
+    }
+
+});
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HVACBusiness",
+  "name": "Priono Teknik AC",
+  "image": "https://prionoteknikac.github.io/logo.png",
+  "@id": "https://prionoteknikac.github.io",
+  "url": "https://prionoteknikac.github.io",
+  "telephone": "+62881010050528", 
+  "priceRange": "Rp 80.000 - Rp 2.000.000",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jakarta", 
+    "addressLocality": "Jakarta",
+    "addressRegion": "DKI Jakarta",
+    "postalCode": "10110",
+    "addressCountry": "ID"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -6.2088,
+    "longitude": 106.8456
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "https://instagram.com/prionoteknikac", 
+    "https://facebook.com/prionoteknikac"
+  ]
+}
+</script>
+</body>
+
+</html>
