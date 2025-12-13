@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Order Priono Teknik AC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter sebagai font utama */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Memastikan peta Leaflet ditampilkan dengan benar */
+        #map {
+            height: 350px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl mx-auto">
+        <div id="mainContainer">
+            <div id="formContainer" class="bg-white p-8 rounded-2xl shadow-lg transition-all duration-500">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Form Order Priono Teknik AC</h1>
+                    <p class="text-slate-500 mt-2">Silakan isi detail di bawah ini untuk melakukan pemesanan.</p>
+                </div>
+                
+                <form id="bookingForm" class="space-y-6">
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-700 border-b pb-2 mb-4">Informasi Pelanggan</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-600 mb-1">Nama Lengkap</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-slate-600 mb-1">Nomor Telepon (WhatsApp)</label>
+                                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <label for="address" class="block text-sm font-medium text-slate-600 mb-1">Alamat</label>
+                            <textarea id="address" name="address" rows="3" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Masukkan alamat lengkap Anda"></textarea>
+                        </div>
+                         <div class="mt-6">
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Tentukan Titik Peta Lokasi</label>
+                            <button type="button" id="findMeBtn" class="mb-2 w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition text-sm text-slate-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                </svg>
+                                <span id="findMeBtnText">Gunakan Lokasi Saya Saat Ini</span>
+                            </button>
+                            <div id="map" class="w-full rounded-lg border border-slate-300 mt-1"></div>
+                            <input type="hidden" id="map_coordinates" name="map_coordinates">
+                            <p class="text-xs text-slate-500 mt-2">Atau geser penanda merah untuk menyesuaikan lokasi Anda.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-700 border-b pb-2 mb-4">Detail Pesanan</h2>
+                        <div id="orderItemsContainer" class="space-y-4">
+                            <div class="order-item grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
+                                <div class="md:col-span-4">
+                                    <label class="block text-sm font-medium text-slate-600 mb-1">Kategori Layanan</label>
+                                    <select name="product[]" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                        <option value="" disabled selected>-- Pilih salah satu --</option>
+                                        <option value="Beli AC Baru">Beli AC Baru</option>
+                                        <option value="Beli AC Bekas">Beli AC Bekas</option>
+                                        <option value="Jual AC">Jual AC</option>
+                                        <option value="Tukar Tambah AC">Tukar Tambah AC</option>
+                                        <option value="Perawatan AC">Perawatan AC</option>
+                                        <option value="Perbaikan AC">Perbaikan AC</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-slate-600 mb-1">Jumlah Unit</label>
+                                    <input type="number" name="quantity[]" min="1" value="1" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="addOrderItemBtn" class="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-800 transition">+ Tambah Pesanan Lain</button>
+                        
+                        <div class="mt-6">
+                            <label for="booking_date" class="block text-sm font-medium text-slate-600 mb-1">Tanggal Layanan</label>
+                            <input type="date" id="booking_date" name="booking_date" required class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-slate-600 mb-1">Catatan Tambahan (Opsional)</label>
+                        <textarea id="notes" name="notes" rows="4" class="w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Contoh: AC tidak dingin, unit di lantai 2, dll."></textarea>
+                    </div>
+                </form>
+                 <div class="flex flex-col md:flex-row gap-4 pt-6">
+                    <button type="button" id="cancelBtn" class="w-full md:w-1/2 bg-slate-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-700 transition">
+                        Batalkan
+                    </button>
+                    <button type="button" id="orderBtn" class="w-full md:w-1/2 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition">
+                        Pesan Sekarang
+                    </button>
+                </div>
+            </div>
+
+            <div id="confirmationMessage" class="hidden bg-white p-8 rounded-2xl shadow-lg text-center">
+                 <svg class="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h1 class="text-3xl font-bold text-slate-800 mt-4">Terima Kasih!</h1>
+                <p class="text-slate-500 mt-2 px-4">Selesaikan pesanan Anda melalui aplikasi Whatsapp dan kami akan segera mengkonfirmasinya, terima kasih.</p>
+                <button onclick="newOrder()" class="mt-8 w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">
+                    Buat Pesanan Baru
+                </button>
+            </div>
+            
+            <div id="cancellationMessage" class="hidden bg-white p-8 rounded-2xl shadow-lg text-center">
+                 <svg class="w-16 h-16 mx-auto text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h1 class="text-3xl font-bold text-slate-800 mt-4">Pesanan Dibatalkan</h1>
+                <p class="text-slate-500 mt-2">Anda tetap dapat kembali melakukan order kapanpun.</p>
+                <button onclick="newOrder()" class="mt-8 w-full md:w-auto bg-slate-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-700 transition">
+                    Kembali ke Formulir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Deklarasi semua elemen DOM yang dibutuhkan
+            const bookingForm = document.getElementById('bookingForm');
+            const formContainer = document.getElementById('formContainer');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const cancellationMessage = document.getElementById('cancellationMessage');
+            const orderItemsContainer = document.getElementById('orderItemsContainer');
+            const addOrderItemBtn = document.getElementById('addOrderItemBtn');
+            const orderBtn = document.getElementById('orderBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const findMeBtn = document.getElementById('findMeBtn');
+            const findMeBtnText = document.getElementById('findMeBtnText');
+            const coordinatesInput = document.getElementById('map_coordinates');
+            const maxItems = 3;
+
+            // --- Inisialisasi Peta Leaflet ---
+            const initialCoords = [-6.175392, 106.827153]; // Monas, Jakarta
+            const map = L.map('map').setView(initialCoords, 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            const marker = L.marker(initialCoords, { draggable: true }).addTo(map);
+            coordinatesInput.value = initialCoords.join(', ');
+
+            // Listener jika penanda selesai digeser
+            marker.on('dragend', function (event) {
+                const position = marker.getLatLng();
+                coordinatesInput.value = [position.lat, position.lng].join(', ');
+            });
+
+            // --- Logika Tombol "Gunakan Lokasi Saya" ---
+            findMeBtn.addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    findMeBtnText.textContent = "Mencari lokasi...";
+                    findMeBtn.disabled = true;
+
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const userLocation = [position.coords.latitude, position.coords.longitude];
+                            map.setView(userLocation, 17); // Pindahkan view peta & perbesar
+                            marker.setLatLng(userLocation); // Pindahkan marker
+                            coordinatesInput.value = userLocation.join(', ');
+                            
+                            findMeBtnText.textContent = "Lokasi Ditemukan!";
+                            setTimeout(() => {
+                                findMeBtnText.textContent = "Gunakan Lokasi Saya Saat Ini";
+                                findMeBtn.disabled = false;
+                            }, 2000);
+                        },
+                        () => {
+                            // Handle error jika user menolak atau gagal
+                            findMeBtnText.textContent = "Gagal Mendapatkan Lokasi";
+                            setTimeout(() => {
+                                findMeBtnText.textContent = "Gunakan Lokasi Saya Saat Ini";
+                                findMeBtn.disabled = false;
+                            }, 3000);
+                        }
+                    );
+                } else {
+                    // Browser tidak mendukung Geolocation
+                    alert("Browser Anda tidak mendukung fitur lokasi.");
+                }
+            });
+
+            // --- Logika untuk Menambah/Menghapus Baris Pesanan ---
+            addOrderItemBtn.addEventListener('click', () => {
+                const currentItems = orderItemsContainer.querySelectorAll('.order-item').length;
+                if (currentItems < maxItems) {
+                    const newItemRow = orderItemsContainer.children[0].cloneNode(true);
+                    newItemRow.querySelector('select').value = "";
+                    newItemRow.querySelector('input').value = "1";
+                    
+                    const deleteButton = document.createElement('button');
+                    deleteButton.type = 'button';
+                    deleteButton.innerHTML = '×';
+                    deleteButton.className = 'text-red-500 hover:text-red-700 font-bold text-2xl leading-none self-end mb-2';
+                    deleteButton.onclick = () => {
+                        newItemRow.remove();
+                        updateAddButtonState();
+                    };
+
+                    newItemRow.classList.replace('md:grid-cols-6', 'md:grid-cols-7');
+                    newItemRow.children[0].classList.replace('md:col-span-4', 'md:col-span-3');
+                    newItemRow.children[1].classList.replace('md:col-span-2', 'md:col-span-3');
+                    
+                    const deleteColumn = document.createElement('div');
+                    deleteColumn.className = 'md:col-span-1 flex items-end justify-start';
+                    deleteColumn.appendChild(deleteButton);
+                    
+                    newItemRow.appendChild(deleteColumn);
+                    orderItemsContainer.appendChild(newItemRow);
+                    updateAddButtonState();
+                }
+            });
+
+            function updateAddButtonState() {
+                const currentItems = orderItemsContainer.querySelectorAll('.order-item').length;
+                addOrderItemBtn.style.display = currentItems >= maxItems ? 'none' : 'block';
+            }
+
+            // Set tanggal minimum untuk input tanggal adalah hari ini
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('booking_date').setAttribute('min', today);
+            
+            // --- Logika Tombol Aksi (Order & Batalkan) ---
+            orderBtn.addEventListener('click', function() {
+                if (!bookingForm.checkValidity()) {
+                    bookingForm.reportValidity();
+                    return;
+                }
+                
+                // NOMOR WHATSAPP TUJUAN
+                const yourWhatsAppNumber = '+6285774041770'; 
+
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                const coordinates = coordinatesInput.value;
+                const bookingDate = document.getElementById('booking_date').value;
+                const notes = document.getElementById('notes').value;
+                
+                 const formattedDate = new Date(bookingDate).toLocaleDateString('id-ID', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                });
+
+                let orderDetails = '';
+                const orderItems = orderItemsContainer.querySelectorAll('.order-item');
+                orderItems.forEach((item, index) => {
+                    const product = item.querySelector('select[name="product[]"]').value;
+                    const quantity = item.querySelector('input[name="quantity[]"]').value;
+                    if (product) {
+                        orderDetails += `\n- ${product} (${quantity} unit)`;
+                    }
+                });
+
+                let whatsappMessage = `*-- ORDER BARU PRIONO TEKNIK AC --*
+
+*Nama Pelanggan:*
+${name}
+
+*Nomor Telepon:*
+${phone}
+
+*Alamat:*
+${address}
+
+*Titik Lokasi (Google Maps):*
+https://www.google.com/maps?q=${coordinates}
+
+*Detail Pesanan:*${orderDetails}
+
+*Tanggal Layanan:*
+${formattedDate}
+
+*Catatan Tambahan:*
+${notes || 'Tidak ada'}`;
+
+                const whatsappURL = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                window.open(whatsappURL, '_blank');
+
+                formContainer.classList.add('hidden');
+                confirmationMessage.classList.remove('hidden');
+                cancellationMessage.classList.add('hidden');
+                window.scrollTo(0, 0);
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                formContainer.classList.add('hidden');
+                cancellationMessage.classList.remove('hidden');
+                confirmationMessage.classList.add('hidden');
+                window.scrollTo(0, 0);
+            });
+        });
+
+        function newOrder() {
+            window.location.reload();
+        }
+    </script>
+    
+</body>
+</html>
